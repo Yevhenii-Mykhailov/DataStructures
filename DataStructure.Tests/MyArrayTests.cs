@@ -117,15 +117,15 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(new int[0])]
+        [TestCase(new int[0], 5)]
         public void IndexerSet_WhenEmptyArray_ShouldThrowIndexOutOfRange
-            (int[] sourceArray)
+            (int[] sourceArray, int value)
         {
             IMyList myList = new MyArray(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
-                var item = myList[0];
+                value = myList[0];
             });
         }
 
