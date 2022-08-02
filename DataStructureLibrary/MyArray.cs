@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DataStructureLibrary
 {
-    public class MyArray : IMyList
+    public class MyArray : IMyList, IEnumerable<int>
     {
         private const int DefaultSize = 4;
         private const double Coef = 1.3;
@@ -124,16 +125,7 @@ namespace DataStructureLibrary
         {
             ResizeArray();
 
-            int[] newArray = new int[_array.Length];
-            for (int i = 1; i < _count; i++)
-            {
-                newArray[i - 1] = _array[i];
-            }
-
-            int firstItem = _array[0];
-            _array = newArray;
-            _count--;
-            return firstItem;
+            return RemoveByIndex(0);
         }
 
         public int RemoveByIndex(int index)
@@ -143,25 +135,18 @@ namespace DataStructureLibrary
             int[] newArray = new int[_array.Length];
             int item = _array[index];
 
-            if (index != 0)
+            for (int i = 0; i < index; i++)
             {
-                for (int i = 0; i < index; i++)
-                {
-                    newArray[i] = _array[i];
-                }
-
-                for (int i = index; i < _count; i++)
-                {
-                    newArray[i] = _array[i + 1];
-                }
-
-                _array = newArray;
-                _count--;
+                newArray[i] = _array[i];
             }
-            else
+
+            for (int i = index; i < _count; i++)
             {
-                RemoveFront();
+                newArray[i] = _array[i + 1];
             }
+
+            _array = newArray;
+            _count--;
 
             return item;
         }
@@ -170,63 +155,16 @@ namespace DataStructureLibrary
         {
             ResizeArray();
 
-            int[] newArray = new int[_array.Length];
-            int[] deletedArray = new int[n];
-            int localCount = _count;
-            int deletedCount = n;
-
-            for (int i = 0; i < n; i++)
-            {
-                deletedArray[deletedCount - 1] = _array[localCount - 1];
-                deletedCount--;
-                localCount--;
-                _count--;
-            }
-
-            for (int i = 0; i < _count; i++)
-            {
-                if (localCount > 0)
-                {
-                    newArray[i] = _array[i];
-                    localCount--;
-                }
-            }
-
-            _array = newArray;
-            return deletedArray;
+            return RemoveNValuesByIndex(_count - n, n);
         }
         
         public int[] RemoveNValuesFront(int n)
         {
             ResizeArray();
 
-            int[] newArray = new int[_array.Length];
-            int[] deletedArray = new int[n];
-            int localCount = _count;
-            int deletedCount = n;
-
-            for (int i = 0; i < n; i++)
-            {
-                deletedArray[i] = _array[i];
-                deletedCount--;
-                localCount--;
-                _count--;
-            }
-
-            for (int i = 0; i < _count; i++)
-            {
-                if (localCount > 0)
-                {
-                    newArray[i] = _array[_array.Length - localCount - 1];
-                    localCount--;
-                }
-            }
-
-            _array = newArray;
-            return deletedArray;
+            return RemoveNValuesByIndex(0, n);
         }
 
-        //todo reuse for nValuesFront/nValuesBack
         public int[] RemoveNValuesByIndex(int index, int n)
         {
             ResizeArray();
@@ -235,27 +173,28 @@ namespace DataStructureLibrary
             int[] newArray = new int[_array.Length];
             int[] deletedArray = new int[n];
 
-            for (int i = 0; i < n; i++)
+            do
             {
-                deletedArray[i] = _array[index + localCount];
-                localCount++;
-                _count--;
-            }
+                if (n > 0)
+                {
+                    deletedArray[localCount] = _array[index];
 
-            for (int i = 0; i < _count; i++)
-            {
-                if (n != 1)
-                {
-                    newArray[i] = _array[i];
-                    _array[i] = newArray[i];
+                    for (int i = 0; i < index; i++)
+                    {
+                        newArray[i] = _array[i];
+                    }
+
+                    for (int i = index; i < _count; i++)
+                    {
+                        newArray[i] = _array[i + 1];
+                    }
+
+                    localCount++;
+                    _count--;
+                    _array = newArray;
                 }
-                else
-                {
-                    RemoveByIndex(index);
-                    _count++;
-                    break;
-                }
-            }
+
+            } while (localCount < n);
 
             return deletedArray;
         }
@@ -527,6 +466,19 @@ namespace DataStructureLibrary
             int temp = a;
             a = b;
             b = temp;
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            for (int i = 0; i < _array.Length; i++)
+            {
+                yield return _array[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
