@@ -431,48 +431,5 @@ namespace DataStructure.Tests
 
             CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
         }
-
-        //todo
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, new[] { 5, 4, 3, 2, 1 }, new[] { 5, 4, 3, 2, 1, 1, 2, 3, 4, 5 })]
-        [TestCase(new[] { 99 }, new[] { -1 }, new[] { -1, 99 })]
-        [TestCase(new int[0], new[] { 1, 2, 3, 4, 5 }, new[] { 1, 2, 3, 4, 5 })]
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, new int[0], new[] { 1, 2, 3, 4, 5 })]
-        public void AddFrontIEnumerable_WhenArrayAreFilled_ShouldReturnArrayWithAdditionalElements
-            (int[] sourceArray, int[] items, int[] expectedArray)
-        {
-            var myList = new MyArray(sourceArray);
-
-            myList.AddFront(items);
-
-            CollectionAssert.AreEqual(expectedArray, myList.ToArray());
-        }
-
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, new[] { 5, 4, 3, 2, 1 }, new[] { 1, 2, 3, 4, 5, 5, 4, 3, 2, 1 })]
-        [TestCase(new[] { 99 }, new[] { -1 }, new[] { 99, -1 })]
-        [TestCase(new int[0], new[] { 1, 2, 3, 4, 5 }, new[] { 1, 2, 3, 4, 5 })]
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, new int[0], new[] { 1, 2, 3, 4, 5 })]
-        public void AddBackEnumerable_WhenArrayAreFilled_ShouldReturnArrayWithAdditionalElements
-            (int[] sourceArray, int[] items, int[] expectedArray)
-        {
-            var myList = new MyArray(sourceArray);
-
-            myList.AddBack(items);
-
-            CollectionAssert.AreEqual(expectedArray, myList.ToArray());
-        }
-
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, 1, new[] { 5, 4, 3, 2, 1 }, new[] { 1, 5, 4, 3, 2, 1, 2, 3, 4, 5, })]
-        [TestCase(new[] { 1 }, 0, new[] { 99 }, new[] { 99, 1 })]
-        [TestCase(new int[0], 0, new[] { 1, 2, 3, 4, 5 }, new[] { 1, 2, 3, 4, 5 })]
-        [TestCase(new[] { 1, 2, 3, 4, 5 }, 0, new int[0], new[] { 1, 2, 3, 4, 5 })]
-        public void AddByIndexIEnumerable_WhenArrayAreFilled_ShouldReturnArrayWithAdditionalElements
-            (int[] sourceArray, int index, int[] items, int[] expectedArray)
-        {
-            var myList = new MyArray(sourceArray);
-
-            myList.AddByIndex(index, items);
-
-            CollectionAssert.AreEqual(expectedArray, myList.ToArray());
-        }
     }
 }
