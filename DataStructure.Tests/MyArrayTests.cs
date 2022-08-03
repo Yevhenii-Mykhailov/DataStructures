@@ -13,7 +13,7 @@ namespace DataStructure.Tests
         public void AddBack_WhenArrayFilled_ShouldAddNewElementToBack
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddBack(valueToAdd);
 
@@ -24,7 +24,7 @@ namespace DataStructure.Tests
         public void AddBack_WhenArrayFilled_ShouldAddNewFewElementsToBack
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddBack(valueToAdd);
             myArrayList.AddBack(valueToAdd);
@@ -40,7 +40,7 @@ namespace DataStructure.Tests
         public void AddFront_WhenArrayFilled_ShouldAddNewElementToFront
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddFront(valueToAdd);
 
@@ -51,7 +51,7 @@ namespace DataStructure.Tests
         public void AddFront_WhenArrayFilled_ShouldAddNewFewElementToFront
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddFront(valueToAdd);
             myArrayList.AddFront(valueToAdd);
@@ -67,7 +67,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenValidIndexAndArrayFilled_ShouldReturnValueByIndex
             (int[] sourceArray, int index, int expected)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             int actual = myList[index];
 
@@ -78,7 +78,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenEmptyArray_ShouldThrowIndexOutOfRange
             (int[] sourceArray)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -93,7 +93,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenInvalidIndex_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int index)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -109,7 +109,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenValidIndexAndArrayFilled_ShouldSetValueByIndex
             (int[] sourceArray, int index, int setValue, int expected)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             myList[index] = setValue;
             int actual = myList[index];
@@ -121,7 +121,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenEmptyArray_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int value)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -136,7 +136,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenInvalidIndex_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int index, int value)
         {
-            IMyList myList = new MyArray(sourceArray);
+            var myList = new MyArray<int>(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -149,7 +149,7 @@ namespace DataStructure.Tests
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                IMyList myList = new MyArray(null);
+                var myList = new MyArray<int>(null);
             });
         }
 
@@ -161,7 +161,7 @@ namespace DataStructure.Tests
         public void AddByIndex_WhenArrayFilled_ShouldAddNewElementByIndex
             (int[] sourceArray, int index, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddByIndex(index, valueToAdd);
 
@@ -174,7 +174,7 @@ namespace DataStructure.Tests
         public void RemoveBack_WhenArrayFilled_ShouldReturnLastElement
             (int[] sourceArray,  int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             int actual = myArrayList[myArrayList.Length - 1];
             myArrayList.RemoveBack();
@@ -189,7 +189,7 @@ namespace DataStructure.Tests
         public void RemoveFront_WhenArrayFilled_ShouldReturnFirstItem
             (int[] sourceArray, int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             int actual = myArrayList[0];
             myArrayList.RemoveFront();
@@ -204,7 +204,7 @@ namespace DataStructure.Tests
         public void RemoveByIndex_WhenArrayFilled_ShouldReturnElementByIndex
             (int[] sourceArray, int index, int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             int actual = myArrayList[index];
             myArrayList.RemoveByIndex(index);
@@ -220,7 +220,7 @@ namespace DataStructure.Tests
         public void RemoveNValuesBack_WhenArrayFilled_ShouldReturnNewArrayWithoutDeletedValuesFromBack
             (int[] sourceArray, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             CollectionAssert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesBack(n));
             CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
@@ -232,7 +232,7 @@ namespace DataStructure.Tests
         public void RemoveNValuesFront_WhenArrayFilled_ShouldReturnNewArrayWithoudDeletedValuesFromFront
             (int[] sourceArray, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             CollectionAssert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesFront(n));
             CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
@@ -247,7 +247,7 @@ namespace DataStructure.Tests
         public void RemoveNValuesByIndex_WhenNValuesByIndexDeleted_ShouldReturnDeletedNumbers
             (int[] sourceArray, int index, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesByIndex(index, n));
             CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
@@ -261,7 +261,7 @@ namespace DataStructure.Tests
         public void IndexOf_WhenArrayFilled_ShouldReturnIndexOfElement
             (int[] sourceArray, int element, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.IndexOf(element));
         }
@@ -274,7 +274,7 @@ namespace DataStructure.Tests
         public void Reverse_WhenArrayFilled_ShouldReturnReversedArray
             (int[] sourceArray, int[] expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
             myArrayList.Reverse();
 
             CollectionAssert.AreEqual(expected, myArrayList.ToArray());
@@ -288,7 +288,7 @@ namespace DataStructure.Tests
         public void Max_WhenArrayFilled_ShouldReturnMaxElementOfArray
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.Max());
         }
@@ -301,7 +301,7 @@ namespace DataStructure.Tests
         public void Min_WhenArrayFilled_ShouldReturnMinElementOfArray
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.Min());
         }
@@ -315,7 +315,7 @@ namespace DataStructure.Tests
         public void MaxIndex_WhenArrayFilled_ShouldReturnMaxElementsIndex
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.MaxIndex());
         }
@@ -328,7 +328,7 @@ namespace DataStructure.Tests
         public void MinIndex_WhenArrayFilled_ShouldReturnMinElementsIndex
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.MinIndex());
         }
@@ -340,7 +340,7 @@ namespace DataStructure.Tests
         public void SortAscending_WhenArrayFilled_ShouldReturnArrayInAscendingOrder
             (int[] sourceArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.Sort();
 
@@ -354,7 +354,7 @@ namespace DataStructure.Tests
         public void SortDescending_WhenArrayFilled_ShouldReturnArrayInDescendingOrder
             (int[] sourceArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.Sort(false);
 
@@ -368,7 +368,7 @@ namespace DataStructure.Tests
         public void RemoveByValue_WhenValueRemoved_ShouldReturnIndexOfRemovedValue
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.RemoveByValue(value));
             CollectionAssert.AreEqual(arrayWithoutValue, myArrayList.ToArray());
@@ -381,7 +381,7 @@ namespace DataStructure.Tests
         public void RemoveByValueAll_WhenValueRemoved_ShouldReturnCountOfRemovedElements
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.RemoveByValueAll(value));
             CollectionAssert.AreEqual(arrayWithoutValue, myArrayList.ToArray());
@@ -395,7 +395,7 @@ namespace DataStructure.Tests
         public void AddFrontIEnum_WhenFilled_ShouldReturnFullArrayWithNewItemsFront
             (int[] sourceArray, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddFront(items);
 
@@ -410,7 +410,7 @@ namespace DataStructure.Tests
         public void AddBackIEnum_WhenFilled_ShouldReturnFullArrayWithNewItemsBack
             (int[] sourceArray, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddBack(items);
 
@@ -425,7 +425,7 @@ namespace DataStructure.Tests
         public void AddByIndexIEnum_WhenFilled_ShouldReturnArrayFullArrayWithAddedItemsByIndex
             (int[] sourceArray, int index, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray(sourceArray);
+            var myArrayList = new MyArray<int>(sourceArray);
 
             myArrayList.AddByIndex(index, items);
 

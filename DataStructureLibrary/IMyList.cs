@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructureLibrary
 {
-    public interface IMyList
+    public interface IMyList<T>
     {
         void AddBack(int itemToAdd);
         void AddFront(int itemToAdd);
@@ -28,9 +25,8 @@ namespace DataStructureLibrary
         void Sort(bool ascending = true);
         int RemoveByValue(int value);
         int RemoveByValueAll(int value);
-        void AddFront(IEnumerable<int> items);//foreach(var item in items){}
-        void AddBack(IEnumerable<int> items);//items.Count()
+        void AddFront(IEnumerable<int> items);
+        void AddBack(IEnumerable<int> items);
         void AddByIndex(int index, IEnumerable<int> items);
-
     }
 }
