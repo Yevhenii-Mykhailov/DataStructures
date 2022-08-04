@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DataStructureLibrary
 {
-    public class MyArray<T> : IEnumerable<T> where T : IComparable<T>
+    public class MyArray<T> : IMyList<T> where T : IComparable<T>
     {
         private const int DefaultSize = 4;
         private const double Coef = 1.3;
@@ -470,7 +470,7 @@ namespace DataStructureLibrary
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 yield return _array[i];
             }

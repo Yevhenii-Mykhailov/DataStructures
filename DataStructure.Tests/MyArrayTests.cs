@@ -4,8 +4,26 @@ using System;
 
 namespace DataStructure.Tests
 {
-    public class MyArrayTests
+    public class ArrayListTest : MyListTests<MyArray<int>>
     {
+        public override IMyList<int> CreateList(int[] sourceArray)
+        {
+            return new MyArray<int>(sourceArray);
+        }
+    }
+
+    public class LinkedListTest : MyListTests<MyArray<int>>
+    {
+        public override IMyList<int> CreateList(int[] sourceArray)
+        {
+            return new MyArray<int>(sourceArray);
+        }
+    }
+
+    public abstract class MyListTests<T> where T : IMyList<int>
+    {
+        public abstract IMyList<int> CreateList(int[] sourceArray);
+        
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 10, new[] { 1, 2, 3, 4, 5, 10 })]
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 0, new[] { 1, 2, 3, 4, 5, 0 })]
         [TestCase(new[] { 1, 2 }, 0, new[] { 1, 2, 0 })]
