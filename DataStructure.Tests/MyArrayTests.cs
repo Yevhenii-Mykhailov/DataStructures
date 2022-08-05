@@ -4,7 +4,7 @@ using System;
 
 namespace DataStructure.Tests
 {
-    public class ArrayListTest : MyListTests<MyArray<int>>
+    public class ArrayListTests : MyListTests<MyArray<int>>
     {
         public override IMyList<int> CreateList(int[] sourceArray)
         {
@@ -12,6 +12,7 @@ namespace DataStructure.Tests
         }
     }
 
+    //todo 
     public class LinkedListTest : MyListTests<MyArray<int>>
     {
         public override IMyList<int> CreateList(int[] sourceArray)
@@ -31,23 +32,23 @@ namespace DataStructure.Tests
         public void AddBack_WhenArrayFilled_ShouldAddNewElementToBack
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddBack(valueToAdd);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 10, new[] { 1, 2, 3, 4, 5, 10, 10 })]
         public void AddBack_WhenArrayFilled_ShouldAddNewFewElementsToBack
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddBack(valueToAdd);
             myArrayList.AddBack(valueToAdd);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 10, new[] { 10, 1, 2, 3, 4, 5 })]
@@ -58,23 +59,23 @@ namespace DataStructure.Tests
         public void AddFront_WhenArrayFilled_ShouldAddNewElementToFront
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddFront(valueToAdd);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2 }, -2, new[] { -2, -2, 1, 2 })]
         public void AddFront_WhenArrayFilled_ShouldAddNewFewElementToFront
             (int[] sourceArray, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddFront(valueToAdd);
             myArrayList.AddFront(valueToAdd);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 65 }, 0, 65)]
@@ -85,7 +86,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenValidIndexAndArrayFilled_ShouldReturnValueByIndex
             (int[] sourceArray, int index, int expected)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             int actual = myList[index];
 
@@ -96,7 +97,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenEmptyArray_ShouldThrowIndexOutOfRange
             (int[] sourceArray)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -111,7 +112,7 @@ namespace DataStructure.Tests
         public void IndexerGet_WhenInvalidIndex_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int index)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -127,7 +128,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenValidIndexAndArrayFilled_ShouldSetValueByIndex
             (int[] sourceArray, int index, int setValue, int expected)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             myList[index] = setValue;
             int actual = myList[index];
@@ -139,7 +140,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenEmptyArray_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int value)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -154,7 +155,7 @@ namespace DataStructure.Tests
         public void IndexerSet_WhenInvalidIndex_ShouldThrowIndexOutOfRange
             (int[] sourceArray, int index, int value)
         {
-            var myList = new MyArray<int>(sourceArray);
+            var myList = CreateList(sourceArray);
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -167,7 +168,7 @@ namespace DataStructure.Tests
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var myList = new MyArray<int>(null);
+                var myList = CreateList(null);
             });
         }
 
@@ -179,11 +180,11 @@ namespace DataStructure.Tests
         public void AddByIndex_WhenArrayFilled_ShouldAddNewElementByIndex
             (int[] sourceArray, int index, int valueToAdd, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddByIndex(index, valueToAdd);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 5, new[] { 1, 2, 3, 4 })]
@@ -192,13 +193,13 @@ namespace DataStructure.Tests
         public void RemoveBack_WhenArrayFilled_ShouldReturnLastElement
             (int[] sourceArray,  int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             int actual = myArrayList[myArrayList.Length - 1];
             myArrayList.RemoveBack();
 
             Assert.AreEqual(expected, actual);
-            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList.ToArray());
+            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 1, new[] { 2, 3, 4, 5 })]
@@ -207,13 +208,13 @@ namespace DataStructure.Tests
         public void RemoveFront_WhenArrayFilled_ShouldReturnFirstItem
             (int[] sourceArray, int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             int actual = myArrayList[0];
             myArrayList.RemoveFront();
 
             Assert.AreEqual(expected, actual);
-            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList.ToArray());
+            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 2, 3, new[] { 1, 2, 4, 5 })]
@@ -222,13 +223,13 @@ namespace DataStructure.Tests
         public void RemoveByIndex_WhenArrayFilled_ShouldReturnElementByIndex
             (int[] sourceArray, int index, int expected, int[] arrayWithoutRemovedElement)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             int actual = myArrayList[index];
             myArrayList.RemoveByIndex(index);
 
             Assert.AreEqual(expected, actual);
-            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList.ToArray());
+            CollectionAssert.AreEqual(arrayWithoutRemovedElement, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 2, new[] { 4, 5}, new[] { 1, 2, 3 })]
@@ -238,10 +239,10 @@ namespace DataStructure.Tests
         public void RemoveNValuesBack_WhenArrayFilled_ShouldReturnNewArrayWithoutDeletedValuesFromBack
             (int[] sourceArray, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             CollectionAssert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesBack(n));
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 2, new[] { 1, 2 }, new[] { 3, 4, 5 })]
@@ -250,10 +251,10 @@ namespace DataStructure.Tests
         public void RemoveNValuesFront_WhenArrayFilled_ShouldReturnNewArrayWithoudDeletedValuesFromFront
             (int[] sourceArray, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             CollectionAssert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesFront(n));
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 2, 3, new[] { 3, 4, 5 }, new[] { 1, 2 })]
@@ -265,10 +266,10 @@ namespace DataStructure.Tests
         public void RemoveNValuesByIndex_WhenNValuesByIndexDeleted_ShouldReturnDeletedNumbers
             (int[] sourceArray, int index, int n, int[] removedValuesArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesByIndex(index, n));
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 2, 1)]
@@ -279,7 +280,7 @@ namespace DataStructure.Tests
         public void IndexOf_WhenArrayFilled_ShouldReturnIndexOfElement
             (int[] sourceArray, int element, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.IndexOf(element));
         }
@@ -292,10 +293,10 @@ namespace DataStructure.Tests
         public void Reverse_WhenArrayFilled_ShouldReturnReversedArray
             (int[] sourceArray, int[] expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
             myArrayList.Reverse();
 
-            CollectionAssert.AreEqual(expected, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expected, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 5)]
@@ -306,7 +307,7 @@ namespace DataStructure.Tests
         public void Max_WhenArrayFilled_ShouldReturnMaxElementOfArray
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.Max());
         }
@@ -319,7 +320,7 @@ namespace DataStructure.Tests
         public void Min_WhenArrayFilled_ShouldReturnMinElementOfArray
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.Min());
         }
@@ -333,7 +334,7 @@ namespace DataStructure.Tests
         public void MaxIndex_WhenArrayFilled_ShouldReturnMaxElementsIndex
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.MaxIndex());
         }
@@ -346,7 +347,7 @@ namespace DataStructure.Tests
         public void MinIndex_WhenArrayFilled_ShouldReturnMinElementsIndex
             (int[] sourceArray, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.MinIndex());
         }
@@ -358,11 +359,11 @@ namespace DataStructure.Tests
         public void SortAscending_WhenArrayFilled_ShouldReturnArrayInAscendingOrder
             (int[] sourceArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.Sort();
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1 }, new[] { 1 })]
@@ -372,11 +373,11 @@ namespace DataStructure.Tests
         public void SortDescending_WhenArrayFilled_ShouldReturnArrayInDescendingOrder
             (int[] sourceArray, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.Sort(false);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5, 8 }, 5, new[] { 1, 2, 3, 4, 8 }, 4)]
@@ -386,10 +387,10 @@ namespace DataStructure.Tests
         public void RemoveByValue_WhenValueRemoved_ShouldReturnIndexOfRemovedValue
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.RemoveByValue(value));
-            CollectionAssert.AreEqual(arrayWithoutValue, myArrayList.ToArray());
+            CollectionAssert.AreEqual(arrayWithoutValue, myArrayList);
         }
 
         [TestCase(new[] { 1, 5, 2, 5, 3, 4, 5, 8 }, 5, new[] { 1, 2, 3, 4, 8 }, 3)]
@@ -399,10 +400,10 @@ namespace DataStructure.Tests
         public void RemoveByValueAll_WhenValueRemoved_ShouldReturnCountOfRemovedElements
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             Assert.AreEqual(expected, myArrayList.RemoveByValueAll(value));
-            CollectionAssert.AreEqual(arrayWithoutValue, myArrayList.ToArray());
+            CollectionAssert.AreEqual(arrayWithoutValue, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, new[] { 3, 2, 2, 0, -5 }, new[] { 3, 2, 2, 0, -5, 1, 2, 3, 4, 5 })]
@@ -413,11 +414,11 @@ namespace DataStructure.Tests
         public void AddFrontIEnum_WhenFilled_ShouldReturnFullArrayWithNewItemsFront
             (int[] sourceArray, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddFront(items);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, new[] { 3, 2, 2, 0, -5 }, new[] { 1, 2, 3, 4, 5, 3, 2, 2, 0, -5 })]
@@ -428,11 +429,11 @@ namespace DataStructure.Tests
         public void AddBackIEnum_WhenFilled_ShouldReturnFullArrayWithNewItemsBack
             (int[] sourceArray, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddBack(items);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5 }, 1, new[] { 3, 2, 2, 0, -5 }, new[] { 1, 3, 2, 2, 0, -5, 2, 3, 4, 5 })]
@@ -443,11 +444,11 @@ namespace DataStructure.Tests
         public void AddByIndexIEnum_WhenFilled_ShouldReturnArrayFullArrayWithAddedItemsByIndex
             (int[] sourceArray, int index, int[] items, int[] expectedArray)
         {
-            var myArrayList = new MyArray<int>(sourceArray);
+            var myArrayList = CreateList(sourceArray);
 
             myArrayList.AddByIndex(index, items);
 
-            CollectionAssert.AreEqual(expectedArray, myArrayList.ToArray());
+            CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
     }
 }
