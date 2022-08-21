@@ -12,12 +12,11 @@ namespace DataStructure.Tests
         }
     }
 
-    //todo 
     public class LinkedListTest : MyListTests<MyArray<int>>
     {
         public override IMyList<int> CreateList(int[] sourceArray)
         {
-            return new MyArray<int>(sourceArray);
+            return new MyLinkedList<int>(sourceArray);
         }
     }
 
@@ -264,11 +263,12 @@ namespace DataStructure.Tests
         [TestCase(new[] { -2, -7, 11 }, 1, 1, new[] { -7 }, new[] { -2, 11 })]
         [TestCase(new[] { 1, 2, }, 0, 0, new int[0] { }, new[] { 1, 2, })]
         public void RemoveNValuesByIndex_WhenNValuesByIndexDeleted_ShouldReturnDeletedNumbers
-            (int[] sourceArray, int index, int n, int[] removedValuesArray, int[] expectedArray)
+            (int[] sourceArray, int index, int n, int[] expectedRemovedValuesArray, int[] expectedArray)
         {
             var myArrayList = CreateList(sourceArray);
+            var actualRemovedValuesArray = myArrayList.RemoveNValuesByIndex(index, n);
 
-            Assert.AreEqual(removedValuesArray, myArrayList.RemoveNValuesByIndex(index, n));
+            Assert.AreEqual(expectedRemovedValuesArray, actualRemovedValuesArray);
             CollectionAssert.AreEqual(expectedArray, myArrayList);
         }
 
@@ -388,8 +388,9 @@ namespace DataStructure.Tests
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
             var myArrayList = CreateList(sourceArray);
+            var actual = myArrayList.RemoveByValue(value);
 
-            Assert.AreEqual(expected, myArrayList.RemoveByValue(value));
+            Assert.AreEqual(expected, actual);
             CollectionAssert.AreEqual(arrayWithoutValue, myArrayList);
         }
 
@@ -401,8 +402,9 @@ namespace DataStructure.Tests
             (int[] sourceArray, int value, int[] arrayWithoutValue, int expected)
         {
             var myArrayList = CreateList(sourceArray);
+            var actual = myArrayList.RemoveByValueAll(value);
 
-            Assert.AreEqual(expected, myArrayList.RemoveByValueAll(value));
+            Assert.AreEqual(expected, actual);
             CollectionAssert.AreEqual(arrayWithoutValue, myArrayList);
         }
 
